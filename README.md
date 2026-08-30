@@ -1,36 +1,49 @@
-# Kavya Chaturvedi — Portfolio Website
+# Kavya — "I Make Sense of Messy Products" Portfolio
 
-A single-file, zero-build portfolio site. Everything lives in `index.html` (HTML + CSS + JS), so there is nothing to install or compile.
+Theme: light gray + Poppins + yellow/red/teal circle accents (Wix template style), with the scroll-story animation layer (Motion / motion.dev, vendored inline).
 
-## Deploy to Vercel (2 minutes)
+A single-file, zero-build creative portfolio. Everything lives in `index.html`; `Kavya_Chaturvedi_Resume.pdf` sits beside it for the "Download résumé" button.
 
-**Option A — drag and drop (easiest)**
-1. Go to https://vercel.com/new (log in with GitHub or email).
-2. Drag this whole folder onto the page.
-3. Click Deploy. You get a live URL like `kavya-portfolio.vercel.app`.
+## Deploy to Vercel
 
-**Option B — via GitHub**
-1. Create a new repo (e.g. `portfolio`) on GitHub and upload `index.html`.
-2. On https://vercel.com/new, import that repo and click Deploy.
-3. Every future edit you push auto-deploys.
+**Same project, same URL (recommended):** if you deployed via GitHub, replace the files in your repo with these two and push — Vercel redeploys automatically at kavya-portfolio-eta.vercel.app.
 
-**Option C — CLI**
+**Drag and drop:** go to https://vercel.com/new and drag this whole folder onto the page → Deploy.
+
+**CLI:**
 ```bash
-npm i -g vercel
-cd kavya-portfolio
+cd kavya-creative
 vercel --prod
 ```
 
-## Custom domain
+## Scroll animation — powered by Motion (motion.dev)
 
-In your Vercel project → Settings → Domains, add `kavyachaturvedi.info` and follow the DNS instructions shown there.
+The Motion library is vendored (inlined) into `index.html`, so there is still nothing to install and no CDN dependency. Its `scroll()` API drives every scroll-linked effect below.
 
-## Editing content
+**The hero is now a scroll story:** on load the headline letters lie scattered in a tangle of lines — the mess. As you scroll, the letters fly into place, the tangle retracts and fades, the scribble strikes through MESSY, a clean orange line draws itself across, the arrowhead lands, and "the outcome" dot pops in — then the page releases into the ticker. On phones and for reduced-motion users the hero renders fully assembled and static.
 
-Open `index.html` in any editor — all text is plain HTML:
-- Hero and stats: near the top under `<header>`
-- Experience: `<section id="experience">`
-- Projects: `<section id="projects">` (each project is one `.card` block; `data-cat` controls which filter chips it appears under)
-- Case studies, awards, beyond work, contact: their own sections below
+Other effects:
 
-Client prototype work is intentionally anonymized (no client brand names).
+- **Smooth inertia scrolling** on desktop (disabled on touch + for reduced-motion users)
+- **Scroll progress bar** across the top (Motion `scroll()` → `scaleX`)
+- **Pinned "How I Think" sequence** — the section sticks while a tangled line draws itself through the five sticky notes, flattening into a straight arrow as each note pops in
+- **Pinned horizontal scroll** on "Currently Exploring" — cards travel sideways as you scroll down
+- **Word-by-word heading reveals**, staggered
+- **Parallax** on the photo and hero diagram; **clip-path wipe** on the photo
+- **Counters** that count up when they enter view
+- **Velocity-linked ticker** — scroll faster and the marquee speeds up; scroll up and it reverses
+
+To tune: the hero story length is `header.hero-outer{height:300vh}`; the pinned sections' length is CSS — `.pin-outer{height:330vh}` and `.hz-outer{height:300vh}`. Bigger = slower, more scrolling. Smooth-scroll feel is the `0.115` lerp in the main loop (lower = floatier). To turn smooth scrolling off entirely, set `var SMOOTH = false;` in the script.
+
+## What's interactive
+
+- Hero: animated "mess → outcome" line drawing, scribble over MESSY
+- Marquee ticker, custom cursor, scroll reveals
+- "Things I've built" — click any card to expand THE MESS / MY QUESTION / WHAT I DID / OUTCOME
+- "Try me" — visitor picks A/B/C, your reasoning types itself out
+- Unpopular opinions — click to reveal reasoning
+- "Give me a messy problem" — visitor types a problem, sees your untangling framework animate, and the "send it to me" link opens an email with their text pre-filled
+
+## Editing
+
+All copy is plain HTML in `index.html`. The typed-out scenario answers live in the `answers` object near the bottom of the file.
